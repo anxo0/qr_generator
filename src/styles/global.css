@@ -1,0 +1,243 @@
+@import 'tailwindcss';
+@import '@fontsource-variable/inter';
+@import '@fontsource/ibm-plex-mono/400.css';
+@import '@fontsource/ibm-plex-mono/500.css';
+
+/* El tema se controla con data-theme en <html>. Oscuro por defecto. */
+@custom-variant dark (&:where([data-theme='dark'], [data-theme='dark'] *));
+
+@theme {
+  --font-sans: 'Inter Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* Tokens semánticos: cambian con el tema y Tailwind los expone como colores (bg-paper, text-ink…). */
+@theme inline {
+  --color-paper: var(--paper);
+  --color-paper-2: var(--paper-2);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
+  --color-accent-soft: var(--accent-soft);
+  --color-ok: var(--ok);
+  --color-ok-soft: var(--ok-soft);
+  --color-warn: var(--warn);
+  --color-warn-soft: var(--warn-soft);
+  --color-bad: var(--bad);
+  --color-bad-soft: var(--bad-soft);
+  --shadow-card: var(--shadow-card);
+}
+
+:root {
+  --paper: #1e1e22;
+  --paper-2: #27272c;
+  --surface: #26262b;
+  --surface-2: #2f2f35;
+  --ink: #ececee;
+  --ink-2: #a8a8b0;
+  --ink-3: #75757e;
+  --line: rgba(255, 255, 255, 0.09);
+  --line-strong: rgba(255, 255, 255, 0.22);
+  --accent: #6b8cff;
+  --accent-ink: #9db1ff;
+  --accent-soft: rgba(107, 140, 255, 0.16);
+  --ok: #6fd39a;
+  --ok-soft: rgba(63, 185, 120, 0.16);
+  --warn: #f0b458;
+  --warn-soft: rgba(240, 180, 88, 0.14);
+  --bad: #ff7b72;
+  --bad-soft: rgba(255, 123, 114, 0.14);
+  --shadow-card: 0 1px 0 rgba(255, 255, 255, 0.04), 0 16px 40px -20px rgba(0, 0, 0, 0.6);
+  color-scheme: dark;
+}
+
+:root[data-theme='light'] {
+  --paper: #f4f4f5;
+  --paper-2: #e9e9ec;
+  --surface: #ffffff;
+  --surface-2: #f7f7f8;
+  --ink: #141416;
+  --ink-2: #55555c;
+  --ink-3: #8e8e96;
+  --line: rgba(20, 20, 22, 0.12);
+  --line-strong: rgba(20, 20, 22, 0.28);
+  --accent: #2f5bea;
+  --accent-ink: #1f43b8;
+  --accent-soft: #e3eafd;
+  --ok: #17683a;
+  --ok-soft: #dcf2e3;
+  --warn: #9a5200;
+  --warn-soft: #fbe9cf;
+  --bad: #b42318;
+  --bad-soft: #fde3e0;
+  --shadow-card: 0 1px 0 rgba(20, 20, 22, 0.05), 0 10px 30px -18px rgba(20, 20, 22, 0.3);
+  color-scheme: light;
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    font-feature-settings: 'cv11', 'ss01', 'tnum';
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    min-height: 100dvh;
+    overflow-x: hidden;
+    transition:
+      background-color 0.25s ease,
+      color 0.25s ease;
+  }
+  ::selection {
+    background: var(--accent);
+    color: #fff;
+  }
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+  button,
+  input,
+  select,
+  textarea {
+    font: inherit;
+    color: inherit;
+  }
+  input[type='number']::-webkit-inner-spin-button,
+  input[type='number']::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+  }
+}
+
+/* Logo: versión blanca en oscuro, negra en claro */
+.logo-dark {
+  display: none;
+}
+[data-theme='dark'] .logo-dark {
+  display: block;
+}
+[data-theme='dark'] .logo-light {
+  display: none;
+}
+
+@utility label-mono {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+}
+
+@utility hairline {
+  border: 1px solid var(--line);
+}
+
+@utility hairline-b {
+  border-bottom: 1px solid var(--line);
+}
+
+/* Fondo a cuadros para previsualizar transparencias (la tarjeta del QR siempre es «papel» blanco) */
+@utility checker {
+  background-color: #fff;
+  background-image:
+    linear-gradient(45deg, #e9e9ec 25%, transparent 25%),
+    linear-gradient(-45deg, #e9e9ec 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #e9e9ec 75%),
+    linear-gradient(-45deg, transparent 75%, #e9e9ec 75%);
+  background-size: 16px 16px;
+  background-position:
+    0 0,
+    0 8px,
+    8px -8px,
+    -8px 0;
+}
+
+/* Slider de una sola línea con pulgador redondo */
+.range {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 20px;
+  background: transparent;
+  cursor: pointer;
+}
+.range::-webkit-slider-runnable-track {
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(to right, var(--ink) var(--pct, 0%), var(--line-strong) var(--pct, 0%));
+}
+.range::-moz-range-track {
+  height: 2px;
+  background: var(--line-strong);
+}
+.range::-moz-range-progress {
+  height: 2px;
+  background: var(--ink);
+}
+.range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 14px;
+  height: 14px;
+  margin-top: -6px;
+  border-radius: 50%;
+  background: var(--paper);
+  border: 2px solid var(--ink);
+  transition:
+    transform 0.15s var(--ease-out-quart),
+    background-color 0.15s;
+}
+.range::-moz-range-thumb {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--paper);
+  border: 2px solid var(--ink);
+}
+.range:hover::-webkit-slider-thumb,
+.range:focus-visible::-webkit-slider-thumb {
+  transform: scale(1.15);
+  background: var(--ink);
+}
+.range:focus-visible {
+  outline: none;
+}
+
+/* Icono Solar: hereda color y se alinea con el texto */
+.icon {
+  width: 1.15em;
+  height: 1.15em;
+  flex-shrink: 0;
+  vertical-align: -0.2em;
+}
+
+/* Entrada suave del preview al cambiar */
+@keyframes settle {
+  from {
+    opacity: 0.5;
+    transform: scale(0.99);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+.settle {
+  animation: settle 0.3s var(--ease-out-quart);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .settle {
+    animation: none;
+  }
+}

@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="es" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Generador de QR · soyjulian.dev</title>
+    <meta
+      name="description"
+      content="Generador de códigos QR personalizables: formas, colores, degradados, logo, exportación SVG y PNG. Gratis y sin registro; todo se genera en tu navegador."
+    />
+    <meta name="color-scheme" content="dark light" />
+    <meta name="theme-color" content="#1e1e22" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="canonical" href="https://qr-generator.soyjulian.dev/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Generador de QR · soyjulian.dev" />
+    <meta
+      property="og:description"
+      content="Generador de códigos QR personalizables: formas, colores, degradados y logo. Exporta en SVG o PNG."
+    />
+    <meta property="og:url" content="https://qr-generator.soyjulian.dev/" />
+    <meta property="og:image" content="https://qr-generator.soyjulian.dev/og.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <script>
+      // Tema antes del primer pintado. Oscuro por defecto.
+      (function () {
+        var t = 'dark';
+        try {
+          var s = localStorage.getItem('qr:theme');
+          if (s === 'light' || s === 'dark') t = s;
+        } catch (e) {}
+        document.documentElement.dataset.theme = t;
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
