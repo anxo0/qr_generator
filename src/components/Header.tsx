@@ -7,10 +7,14 @@ import IconMoon from '~icons/solar/moon-bold';
 
 export const REPO_URL = 'https://github.com/anxo0/qr_generator';
 
-/** Logo de soyjulian.dev: versión blanca en oscuro, negra en claro. */
+/** Logo de soyjulian.dev: versión blanca en oscuro, negra en claro. Gira una vuelta al pasar
+ *  el ratón por él o por su enlace (`group`), como en soyjulian.dev. */
 export function Logo({ size = 28, className = '' }: Readonly<{ size?: number; className?: string }>) {
   return (
-    <span className={`inline-block shrink-0 ${className}`} style={{ width: size, height: size }}>
+    <span
+      className={`inline-block shrink-0 transition-transform duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] hover:rotate-[360deg] group-hover:rotate-[360deg] motion-reduce:transition-none motion-reduce:hover:rotate-0 motion-reduce:group-hover:rotate-0 ${className}`}
+      style={{ width: size, height: size }}
+    >
       <img src="/logo-white.png" alt="" width={size} height={size} className="logo-dark size-full" draggable={false} />
       <img src="/logo-black.png" alt="" width={size} height={size} className="logo-light size-full" draggable={false} />
     </span>
@@ -23,7 +27,7 @@ export function Header() {
   return (
     <header className="hairline-b">
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-5 py-3 sm:px-8">
-        <a href="/" className="flex items-center gap-2.5 text-ink">
+        <a href="/" className="group flex items-center gap-2.5 text-ink">
           <Logo />
           <span className="text-[15px] font-semibold tracking-tight">{t('app.title')}</span>
           <span className="hidden font-mono text-[11px] tracking-wider text-ink-3 uppercase sm:inline">{t('nav.author')}</span>

@@ -7,7 +7,9 @@ export function Footer() {
     <footer className="mt-12 border-t border-line">
       <div className="flex flex-col gap-3 py-6">
         <p className="flex items-center gap-2 text-sm text-ink-2">
-          <Logo size={20} />
+          <a href="https://soyjulian.dev" target="_blank" rel="noopener noreferrer" aria-label="soyjulian.dev" className="group inline-flex">
+            <Logo size={20} />
+          </a>
           {t('footer.made')}{' '}
           <a href="https://soyjulian.dev" target="_blank" rel="noopener noreferrer" className="text-ink underline decoration-line-strong underline-offset-4 hover:decoration-accent">
             Julián
